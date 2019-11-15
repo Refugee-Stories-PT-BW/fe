@@ -4,7 +4,7 @@ import SubmitStory from '../SubmitStory/SubmitStory'
 import Home from '../Home/Home';
 import { Tab } from "semantic-ui-react";
 import LoginForm from '../LoginForm/LoginForm';
-// import UserForm from '../UserForm/UserForm';
+import Register from '../Register/Register';
 // import CardList from '../Stories/CardList';
 // import MapContainer from '../Connect/Connect';
 import Map from '../GoogleMaps/GoogleMaps';
@@ -39,10 +39,10 @@ const WrappedMap = withScriptjs (withGoogleMap(Map));
 
         {
           menuItem: 'Register',
-        //   render: () =>
-        //   <UserForm attached={false}>
-        //   <Link to="/userform">User Registration</Link>
-        //   User Registration</UserForm>
+          render: () =>
+          <Register attached={false}>
+          <Link to="/register">User Registration</Link>
+          User Registration</Register>
         },
     //     {
     //       menuItem: 'Connect',

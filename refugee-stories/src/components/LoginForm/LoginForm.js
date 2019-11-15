@@ -1,107 +1,60 @@
-import React from "react";
-// import ReactDOM from 'react-dom';
-import { withRouter } from 'react-router-dom';
-// import { Link } from 'react-router';
-import {Button, Icon } from 'semantic-ui-react';
-import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import React, {useState} from 'react'
+import axiosWithAuth from '../../utils/axiosWithAuth'
 
-   class LoginForm extends React.Component {
-      
+function LoginForm (props) {
 
-        constructor() {
-          super()
-          this.state = {
-              username: '',
-              password: '', redirect:false
-          }
-      }
+    const [data, setData] = useState({
+        email: '',
+        password: ''
+    })
 
-      setRedirect = () => {
-        this.setState({
-          redirect: true
+    const handleChange = (event) => {
+        setData({
+            ...data,
+            [event.target.name]: event.target.value
         })
-      }
-
-      renderRedirect = () => {
-        if (this.state.redirect) {
-          return <Redirect to='/pending' />
-        }
-      }
-
-
-
-      login = (username, password) => {
-          const user = {
-            username,
-            password
-          }
-          return axios.post('https://refugee-stories-api19.herokuapp.com/login', user)
-            .then((res) => {
-              console.log('token:', res.data.token)
-                localStorage.setItem('token', res.data.token)
-                this.renderRedirect()
-               
-              })
-
-            }
-
-
-      handleChanges = e => {
-          this.setState({
-              ...this.state,
-              [e.target.name]: e.target.value
-            });
-      }
-
-      submit = e => {
-        e.preventDefault()
-        const {username, password} = this.state
-        this.login(username, password)
-            .then(() => {
-                this.props.history.push("/pending")
-            })
-            .catch((err) => {
-                console.log(err)
-            })
     }
 
+    const handleSubmit = (event) => {
 
-    
-      render (){ 
-        const {username,password} = this.state
-        return (<div>
-          <h1> Admin Login  </h1>
-  
-          <br></br>
-          <form onSubmit={this.submit}>
-          <div className="ui icon input">
-            <input type = 'text' name = 'username' placeholder = 'Username' value = {username} onChange = {this.handleChanges}  />
-            <i aria-hidden="true" className="users icon"></i>
-          </div>
-  
-          <br></br>
-          <br></br>
-  
-          <div className="ui icon input">
-            <input type = 'password' name = 'password' placeholder = 'Password' value = {password} onChange = {this.handleChanges} /> 
-            <i aria-hidden="true" className="lock icon"></i>
-          </div>
-  
-  
-          <br></br>
-          <br></br>
-          
-          
-          <Button color='teal' animated onClick = {this.submit} >
-            <Button.Content visible>Login</Button.Content>
-            <Button.Content hidden>
-              <Icon name='arrow right' />
-            </Button.Content>
-          </Button>
-          </form>
-        </div>)
-      }
-    };
+        event.preventDefault();
 
-    export default withRouter(LoginForm);
+        axiosWithAuth().post('/auth/login', data)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+        setData({email:'', password:''})
+
+    }
+
+    return (
+
+        <div>
+            <form onSubmit = {handleSubmit}>
+
+            <input name = 'email'
+                type = 'text'
+                value = {data.email}
+                onChange = {handleChange}
+                placeholder = 'Email'/> 
+
+            <input name = 'password'
+                type = 'password'
+                value = {data.password}
+                onChange = {handleChange}
+                placeholder = 'Password'/> 
+
+            <button type='submit'>Submit</button>
+
+            </form>
+        </div>
+
+    )
+
+}
+
+export default LoginForm;
