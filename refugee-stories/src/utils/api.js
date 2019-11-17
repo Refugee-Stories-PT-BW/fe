@@ -6,7 +6,7 @@ export function getToken() {
 
 export default function() {
     return axios.create({
-        baseURL: "https://refugee-stories-api19.herokuapp.com",
+        baseURL: "https://refu-stories-api.herokuapp.com/",
         headers: {
             Authorization: getToken(),
         },

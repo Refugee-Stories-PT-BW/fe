@@ -1,58 +1,64 @@
 import React, { useState } from 'react';
-import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import api from '../../utils/api'
 import { Link } from 'react-router-dom';
+// import axios from 'axios'
 
 function Register(props) {
 
-    const [credentials, setCreadentials] = useState({
-        email: '',
-        firstName: '',
-        lastName: '',
-        password: '',
+    const [entry, setEntry] = useState({
+        username: '',
+        // firstName: '',
+        // lastName: '',
+        password: ''
     })
 
     const handleChange = e => {
-        setCreadentials({...credentials, [e.target.name]: e.target.value})
-        // console.log('Register input value...', credentials)
+        setEntry({...entry, [e.target.name]: e.target.value})
+        // console.log('Register input value...', entry)
     }
 
     const handleSubmit = e => {
         e.preventDefault();
-        axiosWithAuth().post("https://refugee-stories-api19.herokuapp.com/auth/register", credentials)
+        api().post("/users/register", entry)
         .then(res => {
+            console.log('Register Res', res)
             localStorage.setItem('token', res.data.token)
-            props.history.push('/admin')
+            console.log('Token', res.data.token)
+            props.history.push('/login')
         })
         .catch(err => console.log(err))
     };
     
     return (
         <div className='Register'>   
-            {/* <h1>Register</h1> */}
-            <p>First time here?Please,Create an account!</p>
+            <p>First time here? Create an account!</p>
             <form onSubmit={handleSubmit} className='register-form'>
                 <input
                 onChange={handleChange} 
-                type='email' 
-                name='email' 
-                placeholder='Email'>
+                type='username' 
+                name='username' 
+                autoComplete='off'
+                placeholder='Username'>
                 </input>
-                <input
+                {/* <input
                 onChange={handleChange}
                 type='text' 
                 name='firstName' 
+                autoComplete='off'
                 placeholder='First Name'>
                 </input>
                 <input
                 onChange={handleChange}
                 type='text' 
                 name='lastName' 
+                autoComplete='off'
                 placeholder='Last Name'>
-                </input>
+                </input> */}
                 <input
                 onChange={handleChange} 
                 type='password'
                 name='password' 
+                autoComplete='off'
                 placeholder='Password'>
                 </input>
                 <button>Submit</button>

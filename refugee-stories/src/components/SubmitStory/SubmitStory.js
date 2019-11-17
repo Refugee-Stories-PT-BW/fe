@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../../index.css'
-import axios from 'axios';
+import { Link } from 'react-router-dom'
+// import axios from 'axios';
 import {Form, Field,  withFormik} from 'formik';
+import api from '../../utils/api'
 // import Loader from 'react-loader-spinner';
 
 // import Button from '../Button/Button';
@@ -39,6 +41,7 @@ const SubmitStory = ({errors, touched, values, status, handleReset }) => {
 
     return (  
         <div className='story-form'>
+         <Link to='/'>Home</Link>
             <h2>Tell Us Your Story!</h2>
          <div className='thanks-div'></div>
 
@@ -103,7 +106,7 @@ const FormikSubmitStory =withFormik({
 
 
     handleSubmit(values, { setStatus }) {
-       axios.post('https://refugee-stories-api19.herokuapp.com/posts/new', values)
+       api().post('/stories', values)
         .then(res => {
             console.log('Res Post', res)
             setStatus(res.data);

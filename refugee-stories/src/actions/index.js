@@ -1,4 +1,4 @@
-import { axiosWithAuth } from '../utils/axiosWithAuth'
+import api from '../utils/api'
 
 export const GET_STORIES_DATA_START = 'GET_STORIES_DATA_START'
 export const GET_STORIES_DATA_SUCCESS = 'GET_STORIES_DATA_SUCCESS'
@@ -7,7 +7,7 @@ export const GET_STORIES_DATA_FAILURE = 'GET_STORIES_DATA_FAILURE'
 export function fetchData() {
     return dispatch => {
         dispatch({ type: GET_STORIES_DATA_START })
-        axiosWithAuth()
+        api()
         .get('/posts')
         .then(res => {console.log("RES STORIES", res)
             dispatch({ type:GET_STORIES_DATA_SUCCESS, payload: res.data })})
@@ -24,7 +24,7 @@ export const POST_STORIES_DATA_FAILURE = 'POST_STORIES_DATA_FAILURE'
 export function postData(story) {
     return dispatch => {
         dispatch({ type: POST_STORIES_DATA_START, payload: story })
-        axiosWithAuth()
+        api()
         .post('/posts/new', story)
         .then(res => {
             console.log('RES POST', res)
@@ -41,7 +41,7 @@ export const REMOVE_STORIES_DATA_FAILURE = 'REMOVE_STORIES_DATA_FAILURE'
 export function deleteStory(id) {
     return dispatch => {
         dispatch({ type: REMOVE_STORIES_DATA_START })
-        axiosWithAuth()
+        api()
         .delete(`/posts/${id}`)
         .then(res => {
             dispatch({ type: REMOVE_STORIES_DATA_SUCCESS, payload: res.data})

@@ -1,60 +1,50 @@
-import React, {useState} from 'react'
-import axiosWithAuth from '../../utils/axiosWithAuth'
+import React from 'react';
+import { withFormik, Form, Field } from 'formik'
+import * as Yup from 'yup'
+import api from '../../utils/api'
 
-function LoginForm (props) {
+const LoginForm = ({ errors, touched }) => {
 
-    const [data, setData] = useState({
-        email: '',
-        password: ''
-    })
-
-    const handleChange = (event) => {
-        setData({
-            ...data,
-            [event.target.name]: event.target.value
-        })
-    }
-
-    const handleSubmit = (event) => {
-
-        event.preventDefault();
-
-        axiosWithAuth().post('/auth/login', data)
-            .then(res => {
-                console.log(res);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-
-        setData({email:'', password:''})
-
-    }
-
-    return (
-
-        <div>
-            <form onSubmit = {handleSubmit}>
-
-            <input name = 'email'
-                type = 'text'
-                value = {data.email}
-                onChange = {handleChange}
-                placeholder = 'Email'/> 
-
-            <input name = 'password'
-                type = 'password'
-                value = {data.password}
-                onChange = {handleChange}
-                placeholder = 'Password'/> 
-
-            <button type='submit'>Submit</button>
-
-            </form>
-        </div>
-
-    )
-
+    return ( 
+        <Form className='form-group'>
+            <div className='form'>
+                <label className='label'>Username</label> 
+                    <Field name='username' type='username' placeholder='Username'
+                        // autoComplete='off' 
+                     />
+                     <p>{touched.username && errors.username}</p>
+            </div>
+            <div className='form'>
+                <label className='label'>Password</label> 
+                    <Field name='password' type='password' placeholder='Password'
+                        // autoComplete='off'
+                     />
+                    <p>{touched.password && errors.password}</p>
+            </div>           
+            <button type='submit' >Come on in &rarr; </button>
+        </Form>
+     );
 }
-
-export default LoginForm;
+ 
+export default withFormik ({
+    mapPropsToValues() {
+        return {
+            username: '',
+            password: ''
+        }
+    },
+    validationSchema: Yup.object().shape({
+        username: Yup.string().required(),
+        password: Yup.string().min(4).required()
+    }),
+    handleSubmit(values, formikBag) {
+        api()
+        .post('/users/login ', values)
+        .then(res => {
+            console.log('Res', res)
+            localStorage.setItem('token', res.data.payload)
+            formikBag.props.history.push('/users')
+        })
+        .catch(e => console.log(e.response.data.message))
+    }
+}) (LoginForm);
