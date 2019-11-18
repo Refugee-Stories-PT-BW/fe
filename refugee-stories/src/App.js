@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withRouter, Route, Link, Redirect } from 'react-router-dom'
 import SubmitStory from './components/SubmitStory/SubmitStory'
 import LoginForm from './components/LoginForm/LoginForm'
@@ -9,7 +9,7 @@ import StoriesList from './components/StoriesList/StoriesList'
 import Home from './components/Home/Home'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import { getToken } from './utils/api'
-import api from './utils/api'
+// import api from './utils/api'
 import './App.css';
 
 
@@ -17,18 +17,7 @@ function App() {
   const signedIn = getToken()
   const[stories, setStories] = useState([])
 
-  useEffect(() => {
-    api()
-    .get('/stories')
-    .then(res => {
-      console.log('List of stories', res)
-      setStories(res.data)
-    })
-    .catch(error => {
-      console.log(error.message)
-    })
-  },[setStories]);
-
+ 
   const Logout = () => {
     localStorage.removeItem('token')
     return <Redirect to='/login' />

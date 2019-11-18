@@ -63,8 +63,7 @@ const StoriesList = ({stories,  updateStories, ...props }) => {
 
     return ( 
      <div>
-          <h3>Stories</h3>
-          {/* <button onClick={fetchStories}>Fetch Stories</button>              */}
+          <h2>Stories</h2>
                <div className='list'>
                     {stories.map(i => (
                          <div className='story' key={i.id}>
@@ -79,7 +78,7 @@ const StoriesList = ({stories,  updateStories, ...props }) => {
                     ))}
                     {editing && (
                          <form onSubmit={saveEdit}>
-                          <legend>Edit story</legend>
+                          {/* <legend>Edit story</legend> */}
                          <input name='title'
                                value={storyToEdit.title}
                                onChange={e => setStoryToEdit({...storyToEdit, title: e.target.value})} />

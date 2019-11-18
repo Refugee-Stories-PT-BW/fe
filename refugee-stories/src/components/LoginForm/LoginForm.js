@@ -6,16 +6,16 @@ import api from '../../utils/api'
 const LoginForm = ({ errors, touched }) => {
 
     return ( 
-        <Form className='form-group'>
+        <Form className='story-form'>
             <div className='form'>
-                <label className='label'>Username</label> 
+                {/* <label className='label'>Username</label>  */}
                     <Field name='username' type='username' placeholder='Username'
                         // autoComplete='off' 
                      />
                      <p>{touched.username && errors.username}</p>
             </div>
             <div className='form'>
-                <label className='label'>Password</label> 
+                {/* <label className='label'>Password</label>  */}
                     <Field name='password' type='password' placeholder='Password'
                         // autoComplete='off'
                      />

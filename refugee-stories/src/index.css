@@ -26,6 +26,19 @@ code {
   color: rgba(33, 123, 175, 0.924)
 }
 
+h3 {
+  font-weight: bold;
+  font-size: 30px;
+  text-shadow: 5px 5px 5px #aaa;
+  color: rgba(33, 123, 175, 0.924)
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 30px;
+  text-shadow: 5px 5px 5px #aaa;
+  color: rgba(33, 123, 175, 0.924)
+}
 .home-page img {
     width: 60%;
     box-shadow: 10px 10px 5px grey;
@@ -200,4 +213,11 @@ textarea:hover {
 .home-page {
   display:flex;
   flex-direction: column;
+}
+
+p{
+  column-count: 3;
+  column-gap: 40px;
+  font-weight: bold;
+  text-align: justify;
 }

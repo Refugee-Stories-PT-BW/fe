@@ -30,35 +30,21 @@ function Register(props) {
     };
     
     return (
-        <div className='Register'>   
-            <p>First time here? Create an account!</p>
+        <div className='story-form'>   
+            <h3>First time here? Create an account!</h3>
             <form onSubmit={handleSubmit} className='register-form'>
                 <input
                 onChange={handleChange} 
                 type='username' 
                 name='username' 
-                autoComplete='off'
+                // autoComplete='off'
                 placeholder='Username'>
                 </input>
-                {/* <input
-                onChange={handleChange}
-                type='text' 
-                name='firstName' 
-                autoComplete='off'
-                placeholder='First Name'>
-                </input>
-                <input
-                onChange={handleChange}
-                type='text' 
-                name='lastName' 
-                autoComplete='off'
-                placeholder='Last Name'>
-                </input> */}
                 <input
                 onChange={handleChange} 
                 type='password'
                 name='password' 
-                autoComplete='off'
+                // autoComplete='off'
                 placeholder='Password'>
                 </input>
                 <button>Submit</button>

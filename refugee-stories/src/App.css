@@ -123,6 +123,7 @@ button {
       display: inline-block;
       transition: all 0.2s;
       text-transform: uppercase;
+      font-size: 18px;
     }
   
     nav a:hover {
