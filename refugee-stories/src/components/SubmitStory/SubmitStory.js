@@ -1,47 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import '../../index.css'
-import { Link } from 'react-router-dom'
-// import axios from 'axios';
-import {Form, Field,  withFormik} from 'formik';
 import api from '../../utils/api'
-// import Loader from 'react-loader-spinner';
-
-// import Button from '../Button/Button';
-// import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-
+// import { Link } from 'react-router-dom'
+import {Form, Field,  withFormik} from 'formik';
 import * as yup from 'yup';
 
 
-const SubmitStory = ({errors, touched, values, status, handleReset }) => {
+const SubmitStory = ({errors, touched, values, status, handleReset, ...props }) => {
 
     const [stories, setStories] = useState([]);
-    const [isLoading, setLoading] = useState(false);
-    // console.log('this is touched', touched);
+    // const [isLoading, setLoading] = useState(false);
+    console.log('Formik props', props);
 
-   function element() {
-       return (
-        alert ('Thank you for submitting the form!')
-       )
-   }
+//    function element() {
+//        return (
+//         alert ('Thank you for submitting the form!')
+//        )
+//    }
      
 
     useEffect(() => {
         if(status) {
             setStories([...stories, status]);
-            setLoading(true);
-            element();
+            // setLoading(true);
+            // element();
         }
-        setTimeout(() => {
-            setLoading(false);
-            handleReset();      
-           }, 3000);
+        // setTimeout(() => {
+        //     setLoading(false);
+        //     handleReset();      
+        //    }, 3000);
          // eslint-disable-next-line react-hooks/exhaustive-deps 
-    }, [status]);
+    }, []);
 
 
     return (  
         <div className='story-form'>
-         <Link to='/'>Home</Link>
+         {/* <Link to='/'>Home</Link> */}
             <h2>Tell Us Your Story!</h2>
          <div className='thanks-div'></div>
 
@@ -73,9 +66,9 @@ const SubmitStory = ({errors, touched, values, status, handleReset }) => {
            
            <div className ='button-div' style={{marginTop: '40px'}}>
            {/* <h2 style={{display: 'none'}}>Thank you for submitting the form!</h2> */}
-            <button className='button' type='submit'>
-                {isLoading && <h3>Submitting the story...</h3>}
-                {!isLoading && <h3>Submit Your Story</h3>}
+            <button className='button' type='submit'>Submit the Story
+                {/* {isLoading && <h3>Submitting the story...</h3>}
+                {!isLoading && <h3>Submit Your Story</h3>} */}
             </button>
            </div>
         </Form>
@@ -85,7 +78,8 @@ const SubmitStory = ({errors, touched, values, status, handleReset }) => {
     );
 }
 
-const FormikSubmitStory =withFormik({
+export default withFormik({
+
     mapPropsToValues: ( values ) => {
         // console.log('Values', values)
         return {
@@ -105,18 +99,17 @@ const FormikSubmitStory =withFormik({
     }),
 
 
-    handleSubmit(values, { setStatus }) {
-       api().post('/stories', values)
+    handleSubmit(values, { setStatus, props }) {
+       api()
+        .post('/stories', values)
         .then(res => {
-            console.log('Res Post', res)
+            console.log('Add Story', res)
             setStatus(res.data);
+            props.history.push('/stories')
         })
         .catch(err => console.log(err.response));
-
-       
     }
 
 }) (SubmitStory)
 
 
-export default FormikSubmitStory;

@@ -1,54 +1,33 @@
 import React from 'react';
-// import Friend from '../Friend/Friend'
-// import FriendForm from '../FriendForm/FriendForm'
-// import { Route, Redirect } from 'react-router-dom'; 
 // import api from '../../utils/api'
+
 
 const StoriesList = (props) => {
      console.log('List props', props)
      
-     function routeToStory(e, user) {
+     function routeToStory(e, story) {
           e.preventDefault();
-          props.history.push(`users/${user.id}`)
+          props.history.push(`stories/${story.id}`)
      }
      
-   
+     // const handleDelete= (e, story) => {
+     //      e.preventDefault()
+     //           api()
+     //           .delete(`/stories/${story.id}`)
+     //               .then (res => {
+     //                  console.log(res.data)
+     //                  props.updateStories(res.data)
+     //                  props.history.push('/stories')
+     //               } )
+     //               .catch(err => console.log('Error: ', err))        
+     //         }
+  
 
-     // useEffect(() => {
-     //      api()
-     //      .get('/friends?_limit=5')
-     //      .then(res => {
-     //           console.log('Getting the List',res)
-     //           setFriends(res.data)
-     //      })
-     //      .catch(error => {
-     //           console.log(error)
-     //      })
-     // }, [])
-     
-     // const handleDelete= id => {
-     //      api()
-     //      .delete(`/friends/${id}`)
-     //          .then (res => {
-     //             console.log(res.data)
-     //             setFriends(res.data)
-     //          } )
-     //          .catch(err => console.log('Error: ', err))        
-     //    }
-     
-     //    const editFriend = friend => {
-     //      api().put(`http://localhost:5000/api/friends/${friend.id}`, friend)
-     //        .then(res => {
-     //          setFriends(res.data);
-     //          props.history.push("/friends");
-     //        })
-     //        .catch(err => console.log(err.response));
-     //    };
-      
+  
         
     return ( 
      <div>
-          <h3>Users</h3>
+          <h3>Stories</h3>
           <button onClick={props.fetchStories}>Fetch Stories</button>
           <button onClick={() => {
                     localStorage.removeItem('token');
@@ -62,7 +41,7 @@ const StoriesList = (props) => {
                          <FriendForm {...props} friends= {friends} updateFriends={setFriends} />
                     )}/> */}
                     {props.stories.map(i => (
-                         <div className='friend'
+                         <div className='story'
                          onClick={e => routeToStory(e, i)} key={i.id} >
                          <p>{i.title}</p> 
                          <p>{i.contents} </p>

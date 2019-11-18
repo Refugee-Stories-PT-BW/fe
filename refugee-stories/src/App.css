@@ -87,8 +87,8 @@ button {
   }
 
   
-  .friend {
-    background-color: #fcbb58;
+  .story{
+    background-color:rgba(169, 226, 236, 0.931);
     border: 0;
     box-shadow: 0 -1px 0 #e0e0e0, 0 0 5px rgba(0, 0, 0, 0.12),
       0 5px 8px rgba(0, 0, 0, 0.24);
@@ -109,7 +109,7 @@ button {
 }
     
     nav {
-      background: rgb(195, 174, 174);
+      background: rgba(169, 226, 236, 0.931);
       top: 0;
       width: 100%;
       transition: all 0.2s;
