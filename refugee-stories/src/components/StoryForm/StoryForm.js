@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../utils/api'
+import '../../index.css'
 
 const StoryForm = (props) => {
-    console.log('Form props', props)
+    console.log('StoryForm props', props)
     const [story, setStory] = useState({ 
-      title: '', contents: ''});
+      title: '', contents: '', pending:0 });
 
-    useEffect(() => {
-      const storyToEdit = props.stories.find(
-        story => `${story.id}` === props.match.params.id
-      );
+    // // useEffect(() => {
+    // //   const storyToEdit = props.stories.find(
+    // //     story => `${story.id}` === props.match.params.id
+    // //   );
   
-      if (storyToEdit) setStory(storyToEdit);
-    }, [props.stories, props.match.params.id]);
+    //   if (storyToEdit) setStory(storyToEdit);
+    // }, [props.stories, props.match.params.id]);
   
   
   const handleChange = event => setStory({...story, [event.target.name]: event.target.value});
@@ -31,13 +32,11 @@ const StoryForm = (props) => {
   return (
     <form onSubmit={handleSubmit}>
       <input name='title'
-             placeholder="Title"
              value={story.title}
              onChange={handleChange} />
-      <input name='contents'
-             placeholder="Contents"
-             value={story.contents}
-             onChange={handleChange} />
+      <label>
+          <textarea  value={story.contents} onChange={handleChange} />
+      </label> 
       <button type='submit'>Update Story</button>
     </form>
   );
