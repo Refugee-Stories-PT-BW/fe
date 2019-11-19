@@ -7,15 +7,15 @@ import * as yup from 'yup';
 
 const SubmitStory = ({errors, touched, values, status, handleReset, ...props }) => {
 
-    const [stories, setStories] = useState([]);
+    const [storiesPending, setStoriesPending] = useState([]);
     // const [isLoading, setLoading] = useState(false);
-    console.log('Formik props', props);
+    // console.log('Formik props', props);
 
      
 
     useEffect(() => {
         if(status) {
-            setStories([...stories, status]);
+            setStoriesPending([...storiesPending, status]);
             // setLoading(true);
             // element();
         }
@@ -100,7 +100,7 @@ export default withFormik({
         .then(res => {
             console.log('Add Story', res)
             setStatus(res.data);
-            props.history.push('/stories')
+            props.history.push('/pending')
         })
         .catch(err => console.log(err.response));
     }

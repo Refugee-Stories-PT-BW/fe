@@ -4,21 +4,23 @@ import React, { useState, useEffect } from 'react';
 
 import api from '../../utils/api'
 
-const StoriesList = ({stories,  updateStories, ...props }) => {
-     console.log('List props', props)
-     // const dispatch = useDispatch()
-     const [editing, setEditing] = useState(false)
-     const [storyToEdit, setStoryToEdit] = useState({
-          title: '',
-          contents:''
-     })
 
-     const fetchStories = () => {    
+
+const PendingStories = ({stories,  updateStories, ...props }) => {
+     console.log('PendingList props', props)
+     // const dispatch = useDispatch()
+     const [approving, setApproving] = useState(false)
+     const [storyToApprove, setStoryToApprove] = useState({
+        title: '',
+        contents:'',
+        pending: 1})
+
+     const fetchStoriesPending = () => {    
           api()
-          .get('/stories/')
+          .get('/stories/a/pending')
           .then(res => {
-            console.log('List of stories', res)
-            updateStories(res.data.filter(item => item.pending === 0))
+            console.log('List of pending stories', res)
+           updateStories(res.data.filter(item => item.pending === 1))
           })
           .catch(error => {
             console.log(error.message)
@@ -26,27 +28,28 @@ const StoriesList = ({stories,  updateStories, ...props }) => {
      }
      
           useEffect(() => {
-               fetchStories()
+               fetchStoriesPending()
                // eslint-disable-next-line
           },[])
 
       
 
-     const editStory = story => {
-          setEditing(true)
-          setStoryToEdit(story)
+      const approveStory = story => {
+          setApproving(true)
+          setStoryToApprove(story)
      }
 
-     const saveEdit = e => {
+     const saveApprove = e => {
           e.preventDefault()
           api()
-          .put(`/stories/${storyToEdit.id}`, storyToEdit)
+          .put(`/stories/${storyToApprove.id}`, storyToApprove)
           .then(res => {
-               console.log('Put req', res)
-               setEditing(false)
+               console.log('Put Approve req', res)
+               setApproving(false)
                updateStories(stories.map(item => item.id === res.data.id? res.data:item))
+               fetchStoriesPending()
           })
-          .catch(err => console.log('Put err', err.response))
+          .catch(err => console.log('Put Approve err', err.response))
      }
 
      const deleteStory = story => {
@@ -54,17 +57,18 @@ const StoriesList = ({stories,  updateStories, ...props }) => {
           .delete(`stories/${story.id}`)
           .then(res => {
                console.log('Del res', res)
-               fetchStories()
-               setEditing(false)
+               fetchStoriesPending()
+               setApproving(false)
                // updateStories(stories.filter(story => story.id !== res.data))
                // props.history.push('/stories')
           })
           .catch(err => console.log(err.response))
      }
+     
 
     return ( 
      <div>
-          <h2>Stories</h2>
+          <h2>Pending Stories</h2>
                <div className='list'>
                     {stories.map(i => (
                          <div className='story' key={i.id}>
@@ -72,32 +76,29 @@ const StoriesList = ({stories,  updateStories, ...props }) => {
                               <h4>Username:{i.name}</h4>
                               <h4>Email:{i.email}</h4>
                               <p>{i.contents} </p>
-                              <button onClick={() => editStory(i)}>Edit</button>
+                              {/* <button onClick={() => editStory(i)}>Edit</button> */}
+                              <span>
+                              <button onClick={() => {approveStory(i)}}>Approve</button>
+                              </span>
                               <span>
                               <button onClick={e => {
                                    deleteStory(i)}}>X</button>
                               </span>
                          </div>
                     ))}
-                    {editing && (
-                         <form onSubmit={saveEdit}>
+                    {approving && (
+                         <form onSubmit={saveApprove}>
                           {/* <legend>Edit story</legend> */}
-                         <input name='title'
-                               value={storyToEdit.title}
-                               onChange={e => setStoryToEdit({...storyToEdit, title: e.target.value})} />
-                              <label>
-                                   <textarea  value={storyToEdit.contents} onChange={e => setStoryToEdit({
-                                        ...storyToEdit, contents: e.target.value
-                                   })} />
-                              </label> 
-                              <button type='submit'>Update Story</button>
-                              <button onClick={() => setEditing(false)}>cancel</button>
+                         <input name='pending'
+                               value={storyToApprove.pending}
+                               onChange={e => setStoryToApprove({...storyToApprove, pending: e.target.value})} /> 
+                              <button type='submit'>Approve Story</button>
+                              <button onClick={() => setApproving(false)}>cancel</button>
                          </form>
                     )}
-                    
                </div>
      </div>
      );
 }
  
-export default StoriesList;
+export default PendingStories;
