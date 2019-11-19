@@ -7,7 +7,8 @@ function RegisterForm(props) {
         // firstName: '',
         // lastName: '',
         username: '',
-        password: ''
+        password: '',
+        role: ''
         // country: ''
 
     })
@@ -74,6 +75,12 @@ function RegisterForm(props) {
                 value = {data.password}
                 onChange = {handleChange}
                 placeholder = 'Password'/>
+
+                <input name = 'role'
+                type = 'text'
+                value = {data.role}
+                onChange = {handleChange}
+                placeholder = 'Role'/>
 
                 {/* <select name = 'country'
                 value = {data.country}
