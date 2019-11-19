@@ -9,12 +9,16 @@ import StoriesList from './components/StoriesList/StoriesList'
 import Home from './components/Home/Home'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import { getToken } from './utils/api'
+import { useSelector, useDispatch } from 'react-redux'
+// import { fetchStoriesData, postStoryData, deleteStory, editStory } from './actions'
 // import api from './utils/api'
 import './App.css';
 
 
 function App() {
   const signedIn = getToken()
+  const state = useSelector(state => state)
+  const dispatch = useDispatch()
   const[stories, setStories] = useState([])
 
  

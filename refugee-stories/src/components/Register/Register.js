@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import api from '../../utils/api'
 import { Link } from 'react-router-dom';
+import { useSelector }  from 'react-redux'
 // import axios from 'axios'
 
 function Register(props) {
-
+    // const state = useSelector(state => state.entry)
     const [entry, setEntry] = useState({
         username: '',
         // firstName: '',
         // lastName: '',
-        password: ''
+        password: '',
+        role: ''
     })
 
     const handleChange = e => {
@@ -46,6 +48,13 @@ function Register(props) {
                 name='password' 
                 // autoComplete='off'
                 placeholder='Password'>
+                </input>
+                <input
+                onChange={handleChange} 
+                type='role'
+                name='role' 
+                // autoComplete='off'
+                placeholder='Role'>
                 </input>
                 <button>Submit</button>
 

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { fetchStoriesData } from '../../actions'
+import { useDispatch } from 'react-redux'
+
 import api from '../../utils/api'
-
-const initialStory = {
-     title: '',
-     contents:''
-}
-
 
 const StoriesList = ({stories,  updateStories, ...props }) => {
      console.log('List props', props)
+     const dispatch = useDispatch()
      const [editing, setEditing] = useState(false)
-     const [storyToEdit, setStoryToEdit] = useState(initialStory)
+     const [storyToEdit, setStoryToEdit] = useState({
+          title: '',
+          contents:''
+     })
 
      const fetchStories = () => {    
           api()

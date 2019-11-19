@@ -4,11 +4,11 @@ export const GET_STORIES_DATA_START = 'GET_STORIES_DATA_START'
 export const GET_STORIES_DATA_SUCCESS = 'GET_STORIES_DATA_SUCCESS'
 export const GET_STORIES_DATA_FAILURE = 'GET_STORIES_DATA_FAILURE'
 
-export function fetchData() {
+export function fetchStoriesData() {
     return dispatch => {
         dispatch({ type: GET_STORIES_DATA_START })
         api()
-        .get('/posts')
+        .get('/stories')
         .then(res => {console.log("RES STORIES", res)
             dispatch({ type:GET_STORIES_DATA_SUCCESS, payload: res.data })})
         .catch(err => {
@@ -21,11 +21,11 @@ export const POST_STORIES_DATA_START = 'POST_STORIES_DATA_START'
 export const POST_STORIES_DATA_SUCCESS = 'POST_STORIES_DATA_SUCCESS'
 export const POST_STORIES_DATA_FAILURE = 'POST_STORIES_DATA_FAILURE'
 
-export function postData(story) {
+export function postStoryData(story) {
     return dispatch => {
         dispatch({ type: POST_STORIES_DATA_START, payload: story })
         api()
-        .post('/posts/new', story)
+        .post('/stories', story)
         .then(res => {
             console.log('RES POST', res)
             dispatch({ type: POST_STORIES_DATA_SUCCESS, payload: res.data })
@@ -42,12 +42,31 @@ export function deleteStory(id) {
     return dispatch => {
         dispatch({ type: REMOVE_STORIES_DATA_START })
         api()
-        .delete(`/posts/${id}`)
+        .delete(`/stories/${id}`)
         .then(res => {
             dispatch({ type: REMOVE_STORIES_DATA_SUCCESS, payload: res.data})
         })
         .catch(err => {
             dispatch({ type: REMOVE_STORIES_DATA_FAILURE, payload: err.response })
+        })
+    }
+}
+
+export const EDIT_STORIES_DATA_START = 'EDIT_STORIES_DATA_START'
+export const EDIT_STORIES_DATA_SUCCESS = 'EDIT_STORIES_DATA_SUCCESS'
+export const EDIT_STORIES_DATA_FAILURE = 'EDIT_STORIES_DATA_FAILURE'
+
+export function editStory(id) {
+    return dispatch => {
+        dispatch({ type: EDIT_STORIES_DATA_START })
+        const obj = { title: '', contents: ''}
+        api()
+        .put(`/stories/${id}`, obj)
+        .then(res => {
+            dispatch({ type: EDIT_STORIES_DATA_SUCCESS, payload: res.data })
+        })
+        .catch(err => {
+            dispatch({ type: EDIT_STORIES_DATA_FAILURE, payload: err.response })
         })
     }
 }

@@ -11,11 +11,6 @@ const SubmitStory = ({errors, touched, values, status, handleReset, ...props }) 
     // const [isLoading, setLoading] = useState(false);
     console.log('Formik props', props);
 
-//    function element() {
-//        return (
-//         alert ('Thank you for submitting the form!')
-//        )
-//    }
      
 
     useEffect(() => {
