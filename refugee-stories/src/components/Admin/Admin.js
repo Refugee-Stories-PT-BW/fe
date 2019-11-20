@@ -3,7 +3,7 @@ import { withFormik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import api from '../../utils/api'
 
-const LoginForm = ({ errors, touched }) => {
+const Admin = ({ errors, touched }) => {
 
     return ( 
         <Form className='story-form'>
@@ -43,8 +43,8 @@ export default withFormik ({
         .then(res => {
             console.log('Res', res)
             localStorage.setItem('token', res.data.token)
-            formikBag.props.history.push('/stories')
+            formikBag.props.history.push('/pending')
         })
         .catch(e => console.log(e.response.data.message))
     }
-}) (LoginForm);
+}) (Admin);

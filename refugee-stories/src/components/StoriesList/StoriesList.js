@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { fetchStoriesData } from '../../actions'
-import { useDispatch } from 'react-redux'
+// import { fetchStoriesData } from '../../actions'
+// import { useDispatch } from 'react-redux'
 
 import api from '../../utils/api'
 
 const StoriesList = ({stories,  updateStories, ...props }) => {
-     console.log('List props', props)
-     const dispatch = useDispatch()
+     // console.log('List props', props)
+     // const dispatch = useDispatch()
      const [editing, setEditing] = useState(false)
      const [storyToEdit, setStoryToEdit] = useState({
           title: '',
@@ -15,10 +15,10 @@ const StoriesList = ({stories,  updateStories, ...props }) => {
 
      const fetchStories = () => {    
           api()
-          .get('/stories')
+          .get('/stories/')
           .then(res => {
             console.log('List of stories', res)
-            updateStories(res.data)
+            updateStories(res.data.filter(item => item.pending === 0))
           })
           .catch(error => {
             console.log(error.message)
@@ -72,6 +72,8 @@ const StoriesList = ({stories,  updateStories, ...props }) => {
                     {approved.map(i => (
                          <div className='story' key={i.id}>
                               <h2>{i.title}</h2> 
+                              <h4>Username:{i.name}</h4>
+                              <h4>Email:{i.email}</h4>
                               <p>{i.contents} </p>
                               <button onClick={() => editStory(i)}>Edit</button>
                               <span>

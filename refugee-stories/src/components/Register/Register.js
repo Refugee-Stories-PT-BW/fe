@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import api from '../../utils/api'
 import { Link } from 'react-router-dom';
-import { useSelector }  from 'react-redux'
+// import { useSelector }  from 'react-redux'
 // import axios from 'axios'
 
 function Register(props) {
