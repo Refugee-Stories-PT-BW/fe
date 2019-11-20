@@ -22,23 +22,12 @@ function App() {
   const signedIn = getToken()
   const state = useSelector(state => state)
   const dispatch = useDispatch()
-  const[stories, setStories] = useState([])
 
  
   const Logout = () => {
     localStorage.removeItem('token')
     return <Redirect to='/login' />
   }
-
-  useEffect(() =>{
-    axios.get('https://refu-stories-api.herokuapp.com/stories/a/pending')
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }, [])
 
   return (
     <div className="App">
