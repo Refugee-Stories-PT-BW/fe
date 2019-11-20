@@ -6,6 +6,7 @@ import Register from './components/Register/Register'
 import StoriesList from './components/StoriesList/StoriesList'
 import PendingStories from './components/PendingStories/PendingStories'
 import Admin from './components/Admin/Admin'
+import Connect from './components/Connect/Connect'
 // import Story from './components/Story/Story'
 // import StoryForm from './components/StoryForm/StoryForm'
 import Home from './components/Home/Home'
@@ -41,6 +42,7 @@ function App() {
             {signedIn && <Link to='/submitstory'>Submit a Story</Link>}
             {signedIn && <Link to='/stories'>Stories</Link>}
             {signedIn && <Link to='/pending'>Pending</Link>}
+            {signedIn && <Link to='/connect'>Connect</Link>}
             {signedIn && <Link to='/logout'>Logout</Link>}
           </nav>
 
@@ -53,6 +55,7 @@ function App() {
             <Route exact path='/pending' render={props => (
                 <PendingStories {...props}  /> 
                 )} />
+            <Route exact path='/connect' component={Connect} />
             <PrivateRoute exact path='/logout' component={Logout} />
             {/* <Route exact path='/stories/:id' render={props => (
                 <Story {...props} stories={stories} updateStories={setStories} />

@@ -7,6 +7,7 @@ import api from '../../utils/api'
 
 
 const PendingStories = () => {
+    //  console.log('PendingList props', props)
     const state = useSelector(state => state)
      const dispatch = useDispatch()
      const [approving, setApproving] = useState(false)
