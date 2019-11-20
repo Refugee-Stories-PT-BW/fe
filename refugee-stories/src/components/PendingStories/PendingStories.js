@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { fetchStoriesPendingData, fetchStoriesData } from '../../actions'
+import { fetchStoriesPendingData } from '../../actions'
 import { useSelector, useDispatch } from 'react-redux'
 
 import api from '../../utils/api'
 
 
 
-const PendingStories = ({stories,  updateStories, ...props }) => {
-    //  console.log('PendingList props', props)
+const PendingStories = () => {
     const state = useSelector(state => state)
      const dispatch = useDispatch()
      const [approving, setApproving] = useState(false)
@@ -61,7 +60,7 @@ const PendingStories = ({stories,  updateStories, ...props }) => {
                fetchStoriesPendingData()
                setApproving(false)
                // updateStories(stories.filter(story => story.id !== res.data))
-               // props.history.push('/stories')
+              dispatch(fetchStoriesPendingData())
           })
           .catch(err => console.log(err.response))
      }
