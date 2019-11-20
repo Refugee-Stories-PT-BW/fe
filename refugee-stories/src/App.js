@@ -11,8 +11,8 @@ import Admin from './components/Admin/Admin'
 import Home from './components/Home/Home'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import { getToken } from './utils/api'
-// import { useSelector, useDispatch } from 'react-redux'
-// import { fetchStoriesData, postStoryData, deleteStory, editStory } from './actions'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchStoriesPendingData, fetchStoriesData } from './actions'
 // import api from './utils/api'
 import './App.css';
 
@@ -20,8 +20,8 @@ import './App.css';
 function App() {
   const signedIn = getToken()
   // const state = useSelector(state => state)
-  // const dispatch = useDispatch()
-  const[stories, setStories] = useState([])
+  const dispatch = useDispatch()
+  // const[stories, setStories] = useState([])
 
  
   const Logout = () => {
@@ -47,13 +47,11 @@ function App() {
             <Route exact path='/' component={Home} />
             <Route exact path='/register' render={props => <Register {...props}/>} />
             <Route exact path='/login' render={props => <LoginForm {...props}/>} />
-            <Route exact path='/stories' render={props => (
-                <StoriesList {...props} stories={stories}  updateStories={setStories}/> 
-                )} />
+            <Route exact path='/stories' component={StoriesList} />
             <Route exact path='/admin' render={props => <Admin {...props} />} />
             <PrivateRoute exact path='/submitstory' component={SubmitStory} />
             <Route exact path='/pending' render={props => (
-                <PendingStories {...props} stories={stories}  updateStories={setStories}/> 
+                <PendingStories {...props}  /> 
                 )} />
             <PrivateRoute exact path='/logout' component={Logout} />
             {/* <Route exact path='/stories/:id' render={props => (
