@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../utils/api'
 
 const StoriesList = ({stories,  updateStories, ...props }) => {
-     console.log('List props', props)
+     // console.log('List props', props)
      // const dispatch = useDispatch()
      const [editing, setEditing] = useState(false)
      const [storyToEdit, setStoryToEdit] = useState({

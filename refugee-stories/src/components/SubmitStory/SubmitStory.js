@@ -16,13 +16,7 @@ const SubmitStory = ({errors, touched, values, status, handleReset, ...props }) 
     useEffect(() => {
         if(status) {
             setStoriesPending([...storiesPending, status]);
-            // setLoading(true);
-            // element();
         }
-        // setTimeout(() => {
-        //     setLoading(false);
-        //     handleReset();      
-        //    }, 3000);
          // eslint-disable-next-line react-hooks/exhaustive-deps 
     }, []);
 

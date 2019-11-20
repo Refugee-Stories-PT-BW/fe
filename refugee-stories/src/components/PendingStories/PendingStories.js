@@ -7,7 +7,7 @@ import api from '../../utils/api'
 
 
 const PendingStories = ({stories,  updateStories, ...props }) => {
-     console.log('PendingList props', props)
+    //  console.log('PendingList props', props)
      // const dispatch = useDispatch()
      const [approving, setApproving] = useState(false)
      const [storyToApprove, setStoryToApprove] = useState({
@@ -58,7 +58,7 @@ const PendingStories = ({stories,  updateStories, ...props }) => {
           .then(res => {
                console.log('Del res', res)
                fetchStoriesPending()
-               setApproving(false)
+            //    setApproving(false)
                // updateStories(stories.filter(story => story.id !== res.data))
                // props.history.push('/stories')
           })
