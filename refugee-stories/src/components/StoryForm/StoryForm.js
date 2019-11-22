@@ -7,15 +7,7 @@ const StoryForm = (props) => {
     const [story, setStory] = useState({ 
       title: '', contents: '', pending:0 });
 
-    // // useEffect(() => {
-    // //   const storyToEdit = props.stories.find(
-    // //     story => `${story.id}` === props.match.params.id
-    // //   );
-  
-    //   if (storyToEdit) setStory(storyToEdit);
-    // }, [props.stories, props.match.params.id]);
-  
-  
+
   const handleChange = event => setStory({...story, [event.target.name]: event.target.value});
 
   const handleSubmit = event => {
