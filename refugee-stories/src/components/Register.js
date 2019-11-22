@@ -1,112 +1,99 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom'
+import { withFormik, Field } from 'formik'
+import * as Yup from 'yup'
 import api from '../utils/api'
+import { Grid, Header, Segment, Form, Button} from "semantic-ui-react";
+import styled from "styled-components";
 
-function RegisterForm(props) {
+const Wrapper = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
-    const [data, setData] = useState({
-        // firstName: '',
-        // lastName: '',
-        username: '',
-        password: '',
-        role: ''
-        // country: ''
-
-    })
-
-    const handleChange = (event) => {
-        setData({
-            ...data,
-            [event.target.name]: event.target.value
-        })
-    }
-
-    const handleSubmit = (event) => {
-
-        event.preventDefault();
-
-        api().post('/users/register', data)
-            .then(res => {
-                localStorage.setItem("token", res.data.token)
-                console.log(res);
-                props.history.push("/")
-            })
-            .catch(err => {
-                console.log(err);
-            })
-
-        setData({username: '', password: ''})
-
-    }
-
-    const countryOptions = [
-        'United States',
-        'United Kingdom',
-        'Canada',
-        'Mexico'
-    ]
+const RegisterForm = ({ handleSubmit, errors, touched }) => {
 
     return (
-        <div className='register-form-container'>
+        <Wrapper>
+            <Grid
+            textAlign="center"
+            verticalAlign="middle"
+            style={{ marginTop: "5%", display: "flex", flexDirection: "column" }}
+            >
+                <Header as="h2" color="blue" textAlign="center">
+                    <img src="https://i.ibb.co/9YNWNDT/refugee-stories-icon.png" alt="logo"/>
+                    {" "}Register An Account
+                </Header>
 
-            <h1>Register</h1>
+                <div style={{ display: "flex", justifyContent: "center" }}></div>
 
-            <form className='input-fields' onSubmit = {handleSubmit}>
+                <Form size='large' onSubmit={handleSubmit} className='story-form'>
+                    <Segment
+                    stacked
+                    style={{ width: "313px", display: "flex", flexDirection: "column", }}
+                    >
+                        <Field 
+                        fluid 
+                        name='username' 
+                        type='text' 
+                        placeholder='Username'
+                        style={{marginBottom: '10px'}}
+                        // autoComplete='off' 
+                        /> <p>{touched.username && errors.username}</p>
 
-                {/* <input name = 'firstName'
-                type = 'text'
-                value = {data.firstName}
-                onChange = {handleChange}
-                placeholder = 'First Name'/>
+                        <Field 
+                        fluid
+                        name='password' 
+                        type='password' 
+                        placeholder='Password'
+                        style={{marginBottom: '10px' }}
+                        // autoComplete='off'
+                        /> <p>{touched.password && errors.password}</p>
 
-                <input name = 'lastName'
-                type = 'text'
-                value = {data.lastName}
-                onChange = {handleChange}
-                placeholder = 'Last Name'/> */}
+                        <Field
+                        fluid
+                        name='role'
+                        type='text'
+                        placeholder='Role'
+                        style={{marginBottom: '10px' }}
+                        />
 
-                <input name = 'username'
-                type = 'text'
-                value = {data.username}
-                onChange = {handleChange}
-                placeholder = 'Username'/>
+                        <Button type='submit' color='blue' size='large'>
+                            Register &rarr; 
+                        </Button>
 
-                <input name = 'password'
-                type = 'password'
-                value = {data.password}
-                onChange = {handleChange}
-                placeholder = 'Password'/>
+                        <Link to="/login" style={{}}>Already have an account?</Link>
 
-                <input name = 'role'
-                type = 'text'
-                value = {data.role}
-                onChange = {handleChange}
-                placeholder = 'Role'/>
-
-                {/* <select name = 'country'
-                value = {data.country}
-                onChange = {handleChange}
-                placeholder = 'Country'>
-
-                    <option value='' disabled>Select Country</option>
-
-                    {countryOptions.map(option => {
-                        return (
-                            <option
-                            key={option}
-                            value={option}
-                            label={option}> {option} </option>
-                        )
-                    })}
-
-                </select> */}
-
-                <button type = "submit">Register</button>
-
-            </form>
-
-        </div>
+                    </Segment>
+                </Form>
+            </Grid>
+        </Wrapper>
     )
 
 }
 
-export default RegisterForm;
+export default withFormik({
+    mapPropsToValues() {
+        return {
+            username: '',
+            password: '',
+            role: ''
+        }
+    },
+    validationSchema:  Yup.object().shape({
+        username: Yup.string().required(),
+        password: Yup.string().min(4).required()
+    }),
+    handleSubmit: (values, formikBag) => {
+        api().post('/users/register', values)
+        .then(res => {
+            localStorage.setItem("token", res.data.token)
+            console.log(res);
+            formikBag.props.history.push("/")
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+}) (RegisterForm)

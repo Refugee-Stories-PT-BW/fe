@@ -1,4 +1,4 @@
-body {
+/* body {
   margin-top: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -67,11 +67,11 @@ h2 {
   justify-content: space-between;
   align-content: center;
   flex-wrap: wrap;
-  /* max-width: 50%;  */
+  max-width: 50%; 
   margin: 0 auto; 
-  /* border: 2px solid red;  */
-  /* border-radius: 4px;  */
-  /* padding: 10px 10px 15px; */
+  border: 2px solid red; 
+  border-radius: 4px; 
+  padding: 10px 10px 15px;
 }
 
 
@@ -203,11 +203,11 @@ textarea:hover {
 }
 
 .card-cont {
-  /* margin: 0 auto; */
+  margin: 0 auto;
   display: flex;
-  /* flex-wrap: nowrap; */
+  flex-wrap: nowrap;
   justify-content: center;
-  /* align-items: center; */
+  align-items: center;
 }
 
 .home-page {
@@ -220,4 +220,4 @@ p{
   column-gap: 40px;
   font-weight: bold;
   text-align: justify;
-}
+} */
