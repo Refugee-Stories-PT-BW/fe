@@ -31,7 +31,7 @@ function App() {
 
         <Footer />
 
-//           <h1>Refugee Stories</h1>
+{/* //           <h1>Refugee Stories</h1>
 //           <nav>
 //             <Link to='/'>Home</Link>
 //             {!signedIn && <Link to='/register'>Register</Link>}
@@ -50,14 +50,14 @@ function App() {
 //             <Route exact path='/stories' component={StoriesList} />
 //             <Route exact path='/admin' render={props => <Admin {...props} />} />
 //             <PrivateRoute exact path='/submitstory' component={SubmitStory} />
-//             <Route exact path='/pending' render={props => (
-//                 <PendingStories {...props}  /> 
-//                 )} />
-//             <Route exact path='/connect' component={Connect} />
-//             <PrivateRoute exact path='/logout' component={Logout} />
-//             {/* <Route exact path='/stories/:id' render={props => (
-//                 <Story {...props} stories={stories} updateStories={setStories} />
-//               )} /> */}
+             <Route exact path='/pending' render={props => (
+                 <PendingStories {...props}  /> 
+                 )} />
+             <Route exact path='/connect' component={Connect} />
+            <PrivateRoute exact path='/logout' component={Logout} />
+             { <Route exact path='/stories/:id' render={props => (
+                 <Story {...props} stories={stories} updateStories={setStories} />
+             )} /> */}
       </section>
     </div>
   );
