@@ -14,29 +14,11 @@ const PendingStories = () => {
      const [storyToApprove, setStoryToApprove] = useState({
         pending: 0})
 
-    //  const fetchStoriesPending = () => {    
-    //       api()
-    //       .get('/stories/a/pending')
-    //       .then(res => {
-    //         console.log('List of pending stories', res)
-    //        updateStories(res.data.filter(item => item.pending === 1))
-    //       })
-    //       .catch(error => {
-    //         console.log(error.message)
-    //       })
-    //  }
-     
           useEffect(() => {
                dispatch(fetchStoriesPendingData())
                // eslint-disable-next-line
           },[])
 
-      
-
-     //  const approveStory = story => {
-     //      // setApproving(true)
-     //      setStoryToApprove(story)
-     // }
 
      const saveApprove = story => {
           // e.preventDefault()
@@ -73,7 +55,6 @@ const PendingStories = () => {
                               <h4>Username:{i.name}</h4>
                               <h4>Email:{i.email}</h4>
                               <p>{i.contents} </p>
-                              {/* <button onClick={() => editStory(i)}>Edit</button> */}
                               <span>
                               <button onClick={() => {saveApprove(i)}}>Approve</button>
                               </span>
