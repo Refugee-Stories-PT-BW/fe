@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withRouter, Route, Link, Redirect } from 'react-router-dom'
 import SubmitStory from './components/SubmitStory/SubmitStory'
 import LoginForm from './components/LoginForm/LoginForm'
@@ -7,24 +7,15 @@ import StoriesList from './components/StoriesList/StoriesList'
 import PendingStories from './components/PendingStories/PendingStories'
 import Admin from './components/Admin/Admin'
 import Connect from './components/Connect/Connect'
-// import Story from './components/Story/Story'
-// import StoryForm from './components/StoryForm/StoryForm'
 import Home from './components/Home/Home'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import { getToken } from './utils/api'
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchStoriesPendingData, fetchStoriesData } from './actions'
-// import api from './utils/api'
 import './App.css';
 
 
 function App() {
   const signedIn = getToken()
-  // const state = useSelector(state => state)
-  const dispatch = useDispatch()
-  // const[stories, setStories] = useState([])
 
- 
   const Logout = () => {
     localStorage.removeItem('token')
     return <Redirect to='/login' />
