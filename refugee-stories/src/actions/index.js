@@ -10,7 +10,6 @@ export {
     FETCH_DATA_FAILURE_PENDING,
 } from './dataActions.js';
 
-
 // import api from '../utils/api'
 
 // export const GET_STORIES_DATA_START = 'GET_STORIES_DATA_START'

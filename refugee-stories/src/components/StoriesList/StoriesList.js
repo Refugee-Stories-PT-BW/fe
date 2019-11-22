@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from 'react';
-// import { fetchStoriesData } from '../../actions'
-// import { useDispatch } from 'react-redux'
+import { fetchStoriesData } from '../../actions'
+import { useSelector, useDispatch } from 'react-redux'
 
 import api from '../../utils/api'
 
-const StoriesList = ({stories,  updateStories, ...props }) => {
+const StoriesList = () => {
      // console.log('List props', props)
-     // const dispatch = useDispatch()
+     const state = useSelector(state => state)
+     const dispatch = useDispatch()
      const [editing, setEditing] = useState(false)
      const [storyToEdit, setStoryToEdit] = useState({
           title: '',
           contents:''
      })
 
-     const fetchStories = () => {    
-          api()
-          .get('/stories/')
-          .then(res => {
-            console.log('List of stories', res)
-            updateStories(res.data.filter(item => item.pending === 0))
-          })
-          .catch(error => {
-            console.log(error.message)
-          })
-     }
+     // const fetchStories = () => {    
+     //      api()
+     //      .get('/stories/')
+     //      .then(res => {
+     //        console.log('List of stories', res)
+     //        updateStories(res.data.filter(item => item.pending === 0))
+     //      })
+     //      .catch(error => {
+     //        console.log(error.message)
+     //      })
+     // }
      
           useEffect(() => {
-               fetchStories()
+               dispatch(fetchStoriesData())
                // eslint-disable-next-line
           },[])
 
@@ -44,7 +45,7 @@ const StoriesList = ({stories,  updateStories, ...props }) => {
           .then(res => {
                console.log('Put req', res)
                setEditing(false)
-               updateStories(stories.map(item => item.id === res.data.id? res.data:item))
+               dispatch(fetchStoriesData(state.stories.map(item => item.id === res.data.id? res.data:item)))
           })
           .catch(err => console.log('Put err', err.response))
      }
@@ -54,7 +55,7 @@ const StoriesList = ({stories,  updateStories, ...props }) => {
           .delete(`stories/${story.id}`)
           .then(res => {
                console.log('Del res', res)
-               fetchStories()
+               dispatch(fetchStoriesData())
                setEditing(false)
                // updateStories(stories.filter(story => story.id !== res.data))
                // props.history.push('/stories')
