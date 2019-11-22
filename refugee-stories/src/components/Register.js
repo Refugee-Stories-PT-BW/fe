@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom'
 import { withFormik, Field } from 'formik'
 import * as Yup from 'yup'
-import api from '../../utils/api'
+import api from '../utils/api'
 import { Grid, Header, Segment, Form, Button} from "semantic-ui-react";
 import styled from "styled-components";
 
@@ -12,9 +12,9 @@ const Wrapper = styled.section`
   justify-content: center;
 `;
 
-const LoginForm = ({ handleSubmit, errors, touched }) => {
+const RegisterForm = ({ handleSubmit, errors, touched }) => {
 
-    return ( 
+    return (
         <Wrapper>
             <Grid
             textAlign="center"
@@ -23,7 +23,7 @@ const LoginForm = ({ handleSubmit, errors, touched }) => {
             >
                 <Header as="h2" color="blue" textAlign="center">
                     <img src="https://i.ibb.co/9YNWNDT/refugee-stories-icon.png" alt="logo"/>
-                    {" "}Login To Your Account
+                    {" "}Register An Account
                 </Header>
 
                 <div style={{ display: "flex", justifyContent: "center" }}></div>
@@ -38,7 +38,7 @@ const LoginForm = ({ handleSubmit, errors, touched }) => {
                         name='username' 
                         type='text' 
                         placeholder='Username'
-                        style={{marginBottom: '10px', padding: '9.5px 14px' }}
+                        style={{marginBottom: '10px'}}
                         // autoComplete='off' 
                         /> <p>{touched.username && errors.username}</p>
 
@@ -51,38 +51,49 @@ const LoginForm = ({ handleSubmit, errors, touched }) => {
                         // autoComplete='off'
                         /> <p>{touched.password && errors.password}</p>
 
+                        <Field
+                        fluid
+                        name='role'
+                        type='text'
+                        placeholder='Role'
+                        style={{marginBottom: '10px' }}
+                        />
+
                         <Button type='submit' color='blue' size='large'>
-                            Come on in &rarr; 
+                            Register &rarr; 
                         </Button>
 
-                        <Link to="/register" style={{}}>Don't have an account?</Link>
+                        <Link to="/login" style={{}}>Already have an account?</Link>
 
                     </Segment>
                 </Form>
             </Grid>
         </Wrapper>
-     );
+    )
+
 }
- 
-export default withFormik ({
+
+export default withFormik({
     mapPropsToValues() {
         return {
             username: '',
-            password: ''
+            password: '',
+            role: ''
         }
     },
-    validationSchema: Yup.object().shape({
+    validationSchema:  Yup.object().shape({
         username: Yup.string().required(),
         password: Yup.string().min(4).required()
     }),
     handleSubmit: (values, formikBag) => {
-        api()
-        .post('/users/login', values)
+        api().post('/users/register', values)
         .then(res => {
-            console.log('Res', res)
-            localStorage.setItem('token', res.data.token)
-            formikBag.props.history.push('/stories')
+            localStorage.setItem("token", res.data.token)
+            console.log(res);
+            formikBag.props.history.push("/")
         })
-        .catch(e => console.log(e.response.data.message))
+        .catch(err => {
+            console.log(err);
+        })
     }
-}) (LoginForm);
+}) (RegisterForm)

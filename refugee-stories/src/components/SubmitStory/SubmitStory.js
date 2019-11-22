@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../utils/api'
 // import { Link } from 'react-router-dom'
-import {Form, Field,  withFormik} from 'formik';
+import {Field,  withFormik} from 'formik';
 import * as yup from 'yup';
+import { Grid, Header, Segment, Form, Button} from "semantic-ui-react";
+import styled from "styled-components";
 
+const Wrapper = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
-const SubmitStory = ({errors, touched, values, status, handleReset, ...props }) => {
+const SubmitStory = ({handleSubmit, errors, touched, values, status, handleReset, ...props }) => {
 
     const [storiesPending, setStoriesPending] = useState([]);
     // const [isLoading, setLoading] = useState(false);
@@ -22,47 +29,114 @@ const SubmitStory = ({errors, touched, values, status, handleReset, ...props }) 
 
 
     return (  
-        <div className='story-form'>
-         {/* <Link to='/'>Home</Link> */}
-            <h2>Tell Us Your Story!</h2>
-         <div className='thanks-div'></div>
 
-        <Form>
-           <Field name='name' type='text' placeholder='Your name' />
+        <Wrapper>
+            <Grid
+            textAlign="center"
+            verticalAlign="middle"
+            style={{ marginTop: "5%", display: "flex", flexDirection: "column" }}
+            >
+                <Header as="h2" color="blue" textAlign="center">
+                    <img src="https://i.ibb.co/9YNWNDT/refugee-stories-icon.png" alt="logo"/>
+                    {" "}Submit A Story
+                </Header>
 
-           {touched.name && errors.name && (
-               <p className='error'>{errors.name}</p>
-           )}
+                <div style={{ display: "flex", justifyContent: "center" }}></div>
 
-           <Field name='email' type='email' placeholder='Your email' />
+                <Form size='large' className='story-form' onSubmit={handleSubmit}>
+                    <Segment>
+                        <Field
+                        name='name' 
+                        type='text' 
+                        placeholder='Your Name' 
+                        style={{marginBottom: '10px'}}/>
+                        {touched.name && errors.name && (
+                            <p className='error'>{errors.name}</p>
+                        )}
 
-            {touched.email && errors.email && (
-                <p className='error'>{errors.email}</p>
-            )}
+                        <Field
+                        name='email' 
+                        type='email' 
+                        placeholder='Your email' 
+                        style={{marginBottom: '10px'}}/>
+                        {touched.email && errors.email && (
+                            <p className='error'>{errors.email}</p>
+                        )}
 
-            <Field name='title' type='text' placeholder='Title of Your Story' />
+                        <Field
+                        name='title' 
+                        type='text' 
+                        placeholder='Title of Your Story' 
+                        style={{marginBottom: '10px'}}/>
+                        {touched.title && errors.title && (
+                            <p className='error'>{errors.title}</p>
+                        )}
 
-           {touched.title && errors.title && (
-               <p className='error'>{errors.title}</p>
-           )}
+                        <Field
+                        component='textarea' 
+                        name='contents' 
+                        type='text' 
+                        placeholder='Enter your story...' 
+                        style={{marginBottom: '10px'}}/>
+                        {touched.story && errors.story && (
+                            <p className='error'>{errors.story}</p>
+                        )}
+                
+                        
+                        <div className ='button-div' style={{marginTop: '40px'}}>
+                        {/* <h2 style={{display: 'none'}}>Thank you for submitting the form!</h2> */}
+                            <Button color='blue' className='button' type='submit'>Submit the Story
+                                {/* {isLoading && <h3>Submitting the story...</h3>}
+                                {!isLoading && <h3>Submit Your Story</h3>} */}
+                            </Button>
+                        </div>
+                    </Segment>  
+                </Form>
 
-            <Field component='textarea' name='contents' type='text' placeholder='Enter your story...' />
+            </Grid>
+        </Wrapper>
 
-           {touched.story && errors.story && (
-               <p className='error'>{errors.story}</p>
-           )}
+    //     <div className='story-form'>
+    //      {/* <Link to='/'>Home</Link> */}
+    //         <h2>Tell Us Your Story!</h2>
+    //      <div className='thanks-div'></div>
+
+    //     <Form>
+    //        <Field name='name' type='text' placeholder='Your name' />
+
+    //        {touched.name && errors.name && (
+    //            <p className='error'>{errors.name}</p>
+    //        )}
+
+    //        <Field name='email' type='email' placeholder='Your email' />
+
+    //         {touched.email && errors.email && (
+    //             <p className='error'>{errors.email}</p>
+    //         )}
+
+    //         <Field name='title' type='text' placeholder='Title of Your Story' />
+
+    //        {touched.title && errors.title && (
+    //            <p className='error'>{errors.title}</p>
+    //        )}
+
+    //         <Field component='textarea' name='contents' type='text' placeholder='Enter your story...' />
+
+    //        {touched.story && errors.story && (
+    //            <p className='error'>{errors.story}</p>
+    //        )}
  
            
-           <div className ='button-div' style={{marginTop: '40px'}}>
-           {/* <h2 style={{display: 'none'}}>Thank you for submitting the form!</h2> */}
-            <button className='button' type='submit'>Submit the Story
-                {/* {isLoading && <h3>Submitting the story...</h3>}
-                {!isLoading && <h3>Submit Your Story</h3>} */}
-            </button>
-           </div>
-        </Form>
+    //        <div className ='button-div' style={{marginTop: '40px'}}>
+    //        {/* <h2 style={{display: 'none'}}>Thank you for submitting the form!</h2> */}
+    //         <button className='button' type='submit'>Submit the Story
+    //             {/* {isLoading && <h3>Submitting the story...</h3>}
+    //             {!isLoading && <h3>Submit Your Story</h3>} */}
+    //         </button>
+    //        </div>
+    //     </Form>
         
-       </div>
+    //    </div>
         
     );
 }

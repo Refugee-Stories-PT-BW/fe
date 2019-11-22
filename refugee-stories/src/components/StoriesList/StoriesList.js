@@ -63,11 +63,14 @@ const StoriesList = () => {
           .catch(err => console.log(err.response))
      }
 
+     const approved  = stories.filter(i => i.pending === 0)
+
     return ( 
      <div>
           <h2>Stories</h2>
                <div className='list'>
-                    {state.stories.map(i => (
+                    
+                    {approved.map(i => (
                          <div className='story' key={i.id}>
                               <h2>{i.title}</h2> 
                               <h4>Username:{i.name}</h4>
