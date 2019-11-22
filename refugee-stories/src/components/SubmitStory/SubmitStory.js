@@ -12,7 +12,7 @@ const Wrapper = styled.section`
   justify-content: center;
 `;
 
-const SubmitStory = ({errors, touched, values, status, handleReset, ...props }) => {
+const SubmitStory = ({handleSubmit, errors, touched, values, status, handleReset, ...props }) => {
 
     const [storiesPending, setStoriesPending] = useState([]);
     // const [isLoading, setLoading] = useState(false);
@@ -43,10 +43,9 @@ const SubmitStory = ({errors, touched, values, status, handleReset, ...props }) 
 
                 <div style={{ display: "flex", justifyContent: "center" }}></div>
 
-                <Form size='large' className='story-form'>
+                <Form size='large' className='story-form' onSubmit={handleSubmit}>
                     <Segment>
-                        <Field 
-                        fluid
+                        <Field
                         name='name' 
                         type='text' 
                         placeholder='Your Name' 
@@ -55,8 +54,7 @@ const SubmitStory = ({errors, touched, values, status, handleReset, ...props }) 
                             <p className='error'>{errors.name}</p>
                         )}
 
-                        <Field 
-                        fluid
+                        <Field
                         name='email' 
                         type='email' 
                         placeholder='Your email' 
@@ -65,8 +63,7 @@ const SubmitStory = ({errors, touched, values, status, handleReset, ...props }) 
                             <p className='error'>{errors.email}</p>
                         )}
 
-                        <Field 
-                        fluid
+                        <Field
                         name='title' 
                         type='text' 
                         placeholder='Title of Your Story' 
@@ -75,8 +72,7 @@ const SubmitStory = ({errors, touched, values, status, handleReset, ...props }) 
                             <p className='error'>{errors.title}</p>
                         )}
 
-                        <Field 
-                        fluid
+                        <Field
                         component='textarea' 
                         name='contents' 
                         type='text' 

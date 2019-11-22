@@ -18,7 +18,7 @@ const Home = () => {
               <img
                   className='main-img'
                   src={Image}
-                  alt='immigrants' />
+                  alt='rally' />
           </section>
         </div>
       </Wrapper>
