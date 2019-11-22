@@ -10,11 +10,9 @@ const PendingStories = () => {
     //  console.log('PendingList props', props)
     const state = useSelector(state => state)
      const dispatch = useDispatch()
-     const [approving, setApproving] = useState(false)
+     // const [approving, setApproving] = useState(false)
      const [storyToApprove, setStoryToApprove] = useState({
-        title: '',
-        contents:'',
-        pending: 1})
+        pending: 0})
 
     //  const fetchStoriesPending = () => {    
     //       api()
@@ -35,20 +33,21 @@ const PendingStories = () => {
 
       
 
-      const approveStory = story => {
-          setApproving(true)
-          setStoryToApprove(story)
-     }
+     //  const approveStory = story => {
+     //      // setApproving(true)
+     //      setStoryToApprove(story)
+     // }
 
-     const saveApprove = e => {
-          e.preventDefault()
+     const saveApprove = story => {
+          // e.preventDefault()
+          setStoryToApprove({...story, pending: 0})
+          console.log('StoryToApprove', storyToApprove)
+          
           api()
-          .put(`/stories/${storyToApprove.id}`, storyToApprove)
+          .put(`/stories/${story.id}`, storyToApprove)
           .then(res => {
                console.log('Put Approve req', res)
-               setApproving(false)
                dispatch(fetchStoriesPendingData((state.stories.map(item => item.id === res.data.id? res.data:item))))
-               fetchStoriesPendingData()
           })
           .catch(err => console.log('Put Approve err', err.response))
      }
@@ -58,10 +57,7 @@ const PendingStories = () => {
           .delete(`stories/${story.id}`)
           .then(res => {
                console.log('Del res', res)
-               fetchStoriesPendingData()
-               setApproving(false)
-               // updateStories(stories.filter(story => story.id !== res.data))
-              dispatch(fetchStoriesPendingData())
+              dispatch(fetchStoriesPendingData(state.stories.filter(story => story.id !== res.data)))
           })
           .catch(err => console.log(err.response))
      }
@@ -79,7 +75,7 @@ const PendingStories = () => {
                               <p>{i.contents} </p>
                               {/* <button onClick={() => editStory(i)}>Edit</button> */}
                               <span>
-                              <button onClick={() => {approveStory(i)}}>Approve</button>
+                              <button onClick={() => {saveApprove(i)}}>Approve</button>
                               </span>
                               <span>
                               <button onClick={e => {
@@ -87,16 +83,7 @@ const PendingStories = () => {
                               </span>
                          </div>
                     ))}
-                    {approving && (
-                         <form onSubmit={saveApprove}>
-                          {/* <legend>Edit story</legend> */}
-                         <input name='pending'
-                               value={storyToApprove.pending}
-                               onChange={e => setStoryToApprove({...storyToApprove, pending: e.target.value})} /> 
-                              <button type='submit'>Approve Story</button>
-                              <button onClick={() => setApproving(false)}>cancel</button>
-                         </form>
-                    )}
+                    
                </div>
      </div>
      );
