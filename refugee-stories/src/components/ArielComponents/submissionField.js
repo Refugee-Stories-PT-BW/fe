@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Container, Header, Button } from "semantic-ui-react";
+import {Route} from 'react-router-dom'
 import styled from "styled-components";
 import Axios from "axios";
+import StoryFrom from '../StoryForm/StoryForm'
+import api from '../../utils/api'
+import StoryForm from '../StoryForm/StoryForm'
+import { getStoriesData } from '../../actions'
+
 
 const Wrapper = styled.section`
   width: 80%;
@@ -13,8 +19,12 @@ const Wrapper = styled.section`
   justify-content: center;
 `;
 
-export default function SubmissionField() {
+const SubmissionField = (props) => {
   const [userStory, setUserStory] = useState([]);
+
+  // const story = userStory.find(
+  //   story => `${story.id}` === userStory.param.id
+  // )
 
   useEffect(() => {
     Axios.get("https://refu-stories-api.herokuapp.com/stories ")
@@ -22,26 +32,38 @@ export default function SubmissionField() {
       .catch(err => console.log(err));
   }, []);
 
-  const approved = userStory.filter(pending => {
-    return pending.pending === 0;
-  });
-  console.log(approved);
+  const deleteStory = story => {
+         api()
+         .delete(`/stories/${story.id}`)
+             .then (res => {
+                console.log(res.data)
+                setUserStory(userStory.filter(i => {
+                  return i.id != story.id;
+                }))
+             } )
+             .catch(err => console.log('Error: ', err))        
+       }
+
+  // const approved = userStory.filter(pending => {
+  //   return pending.pending === 0;
+  // });
+  // console.log(approved);
 
   return (
     <div>
-      {approved.map(item => {
+      {userStory.filter(pending => {
+        return pending.pending === 0;
+      }).map(item => {
         return (
           <Wrapper key={item.id}>
             <Container text>
               <Header>{item.title}</Header>
               <p>{item.contents}</p>
-              <Button 
-              color="blue"
-              
-              >
-                Edit
-              </Button>
-              <Button color="red">Delete</Button>
+              <Button color="blue" onClick={() => props.history.push(`/stories/${item.id}`)}>Edit</Button>
+              <Button color="red" onClick={e => {deleteStory(item)}}>Delete</Button>
+              <Route exact path='/stories/:id' render={props => (
+                <StoryForm {...props} />
+              )} />
             </Container>
           </Wrapper>
         );
@@ -49,3 +71,5 @@ export default function SubmissionField() {
     </div>
   );
 }
+
+export default SubmissionField;
