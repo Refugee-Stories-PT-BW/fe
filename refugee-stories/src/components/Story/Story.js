@@ -9,11 +9,12 @@ const Story = (props) => {
     const story = props.stories.find(
         story => `${story.id}` === props.match.params.id
     )
-        console.log('Story', story)
+    console.log('Story', story)
 
-        if (!props.stories.length || !story) {
-            return <h2>Loading story data...</h2>;
-          }
+    if (!props.stories.length || !story) {
+        return <h2>Loading story data...</h2>;
+        }
+        
     const handleDelete= e => {
         e.preventDefault()
              api()

@@ -57,7 +57,6 @@ export const reducer = ( state = initialState, action ) => {
                 ...state,
                 isLoading: false,
                 pendingStories: action.payload,
-                isLoading: false
             }
         case FETCH_DATA_FAILURE_PENDING:
             return {

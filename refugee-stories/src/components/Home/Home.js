@@ -4,6 +4,7 @@ import Image from '../../images/immigrants_make_america.jpg'
 import styled from "styled-components";
 
 const Wrapper = styled.section`
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,17 +12,13 @@ const Wrapper = styled.section`
 
 const Home = () => {
     return ( 
-      <Wrapper>
         <div className='home-page'>
-          <section>
               <h2>Voices of Refugees</h2>
               <img
                   className='main-img'
                   src={Image}
                   alt='rally' />
-          </section>
         </div>
-      </Wrapper>
      );
 }
  

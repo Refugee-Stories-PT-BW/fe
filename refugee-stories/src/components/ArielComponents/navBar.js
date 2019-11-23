@@ -10,6 +10,7 @@ import SubmissionField from './submissionField'
 import SubmitStory from '../SubmitStory/SubmitStory'
 import Pending from '../Pending'
 import Home from '../Home/Home'
+import Connect from '../Connect/Connect'
 
 function navBar(props) {
 
@@ -36,6 +37,10 @@ function navBar(props) {
 
         <Link to="/stories" style={{ display: "flex" }}>
           <Menu.Item name="stories">Stories</Menu.Item>
+        </Link>
+
+        <Link to='/connect' style={{display: "flex" }}>
+          <Menu.Item name="connet">Connect</Menu.Item>
         </Link>
 
         {signedIn && <Link to='/submitstory' style={{ display: 'flex' }}>
@@ -79,6 +84,7 @@ function navBar(props) {
           <Pending /> 
           )} />
       <PrivateRoute exact path='/logout' component={Logout} />
+      <Route exact path='/connect' component={Connect}/>
 
     </Container>
   );

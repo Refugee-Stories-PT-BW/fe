@@ -30,34 +30,7 @@ function App() {
         <Navigation />
 
         <Footer />
-
-{/* //           <h1>Refugee Stories</h1>
-//           <nav>
-//             <Link to='/'>Home</Link>
-//             {!signedIn && <Link to='/register'>Register</Link>}
-//             {!signedIn && <Link to='/login'>Login</Link>}
-//             {!signedIn && <Link to='/admin'>Admin</Link>}
-//             {signedIn && <Link to='/submitstory'>Submit a Story</Link>}
-//             {signedIn && <Link to='/stories'>Stories</Link>}
-//             {signedIn && <Link to='/pending'>Pending</Link>}
-//             {signedIn && <Link to='/connect'>Connect</Link>}
-//             {signedIn && <Link to='/logout'>Logout</Link>}
-//           </nav>
-
-//             <Route exact path='/' component={Home} />
-//             <Route exact path='/register' render={props => <Register {...props}/>} />
-//             <Route exact path='/login' render={props => <LoginForm {...props}/>} />
-//             <Route exact path='/stories' component={StoriesList} />
-//             <Route exact path='/admin' render={props => <Admin {...props} />} />
-//             <PrivateRoute exact path='/submitstory' component={SubmitStory} />
-             <Route exact path='/pending' render={props => (
-                 <PendingStories {...props}  /> 
-                 )} />
-             <Route exact path='/connect' component={Connect} />
-            <PrivateRoute exact path='/logout' component={Logout} />
-             { <Route exact path='/stories/:id' render={props => (
-                 <Story {...props} stories={stories} updateStories={setStories} />
-             )} /> */}
+        
       </section>
     </div>
   );
