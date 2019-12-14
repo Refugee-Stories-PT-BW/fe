@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow } from 'react-google-maps'
 import * as nonprofitsData from '../../data/nonprofits.json'
 import mapStyle from './MapStyle'
-import { api_key } from '../../utils/data'
+// import { api_key } from '../../utils/data'
 
 
 function Map() {
